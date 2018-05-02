@@ -11,7 +11,7 @@
 namespace Wicket {
     
     
-    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("D:\\Web Dev Projects\\Wicket\\Wicket\\Wicket\\Wicket\\Wicket\\App.xaml")]
+    [global::Xamarin.Forms.Xaml.XamlFilePathAttribute("D:\\Web Dev Projects\\Wicket\\App\\Wicket\\Wicket\\App.xaml")]
     public partial class App : global::Xamarin.Forms.Application {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Xamarin.Forms.Build.Tasks.XamlG", "0.0.0.0")]
