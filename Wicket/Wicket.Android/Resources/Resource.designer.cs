@@ -3848,6 +3848,9 @@ namespace Wicket.Droid
 			// aapt resource value: 0x7f0b018b
 			public const int AppCompatDialogStyle = 2131427723;
 			
+			// aapt resource value: 0x7f0b018c
+			public const int AppStyle_Light = 2131427724;
+			
 			// aapt resource value: 0x7f0b00b2
 			public const int Base_AlertDialog_AppCompat = 2131427506;
 			

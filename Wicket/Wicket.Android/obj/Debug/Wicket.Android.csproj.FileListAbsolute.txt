@@ -109,6 +109,7 @@ D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\res\drawable-xxhd
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\res\layout\tabbar.xml
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\res\layout\toolbar.xml
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\res\values\styles.xml
+D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\res\values\colours.xml
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\R.cs.flag
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\uploadflags.txt
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\bin\Debug\Mono.Android.pdb
@@ -183,7 +184,6 @@ D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\android\assets\Sy
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\android\assets\System.Xml.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\android\assets\Wicket.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\bin\Debug\Wicket.Android.dll
-D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\Wicket.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\Wicket.Android.dll.mdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\FormsViewGroup.dll.mdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\Xamarin.Forms.Core.dll.mdb

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETStandard,Version=v2.0/",
-    "signature": "5f162db9e8231698b81a38f72d4e78ba19f90348"
+    "signature": "74944a19f66444e6eef8b45ec7f0f23e54b0269f"
   },
   "compilationOptions": {},
   "targets": {
@@ -11,7 +11,7 @@
         "dependencies": {
           "NETStandard.Library": "2.0.1",
           "Newtonsoft.Json": "11.0.2",
-          "Xamarin.Forms": "2.5.1.444934",
+          "Xamarin.Forms": "2.5.1.527436",
           "Xamarin.Forms.CarouselView": "2.3.0-pre2"
         },
         "runtime": {
@@ -29,7 +29,7 @@
           "lib/netstandard2.0/Newtonsoft.Json.dll": {}
         }
       },
-      "Xamarin.Forms/2.5.1.444934": {
+      "Xamarin.Forms/2.5.1.527436": {
         "runtime": {
           "lib/netstandard1.0/Xamarin.Forms.Core.dll": {},
           "lib/netstandard1.0/Xamarin.Forms.Platform.dll": {},
@@ -38,7 +38,7 @@
       },
       "Xamarin.Forms.CarouselView/2.3.0-pre2": {
         "dependencies": {
-          "Xamarin.Forms": "2.5.1.444934"
+          "Xamarin.Forms": "2.5.1.527436"
         },
         "runtime": {
           "lib/portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10/Xamarin.Forms.CarouselView.dll": {}
@@ -73,12 +73,12 @@
       "path": "newtonsoft.json/11.0.2",
       "hashPath": "newtonsoft.json.11.0.2.nupkg.sha512"
     },
-    "Xamarin.Forms/2.5.1.444934": {
+    "Xamarin.Forms/2.5.1.527436": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-zDbZeFhh62l6cMG9dXrQ/CSbk+NxKAykeL+JcVxLn//Rx678sCa961F+ib0gqzNHkTmT1K3TPLlJZp5WjvnKVA==",
-      "path": "xamarin.forms/2.5.1.444934",
-      "hashPath": "xamarin.forms.2.5.1.444934.nupkg.sha512"
+      "sha512": "sha512-HY6Kzu7fufV5PYkMcetpFmeQ8/NrOsolBc1XZzzZKqh2UrqWwkHC7UI5LmmZgfwqs/O9eP7tDIwc1lturp1vOw==",
+      "path": "xamarin.forms/2.5.1.527436",
+      "hashPath": "xamarin.forms.2.5.1.527436.nupkg.sha512"
     },
     "Xamarin.Forms.CarouselView/2.3.0-pre2": {
       "type": "package",

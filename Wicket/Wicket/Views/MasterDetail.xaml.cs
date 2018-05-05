@@ -61,6 +61,12 @@ namespace Wicket
             NextLabel.GestureRecognizers.Add(nextLabelTap);
         }
 
+        private async void itemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var selectedItem = e.SelectedItem as Match;
+            await Navigation.PushAsync(new Views.MatchInformation(selectedItem) { Title = selectedItem.Team1 + " v " + selectedItem.Team2}, true);
+        }
+
         private void carouselOnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var position = DateListCarousel.Position;

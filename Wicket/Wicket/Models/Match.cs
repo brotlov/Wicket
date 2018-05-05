@@ -14,5 +14,6 @@ namespace Wicket.Models
     {
         public string Team1 {get;set;}
         public string Team2 {get;set;}
+        public string MatchType {get;set;}
     }
 }
