@@ -39,9 +39,6 @@
                                             <Label Text="{Binding MatchType}" Grid.Row="1" VerticalOptions="Center" HorizontalOptions="Center"></Label>
                                         </Grid>
                                     </StackLayout>
-                                    <!--<Label Text="{Binding Team1}" VerticalOptions="Center" HorizontalOptions="Start"></Label>
-                                    <Label Text="vs"  VerticalOptions="Center" HorizontalOptions="Center"></Label>
-                                    <Label Text="{Binding Team2}"  VerticalOptions="Center" HorizontalOptions="End"></Label>-->
                                 </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
