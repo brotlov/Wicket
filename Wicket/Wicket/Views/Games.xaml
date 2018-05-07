@@ -4,6 +4,8 @@
                 x:Class="Wicket.Games"
                 xmlns:Local="clr-namespace:Wicket"
                 xmlns:forms="clr-namespace:Xamarin.Forms;assembly=Xamarin.Forms.CarouselView"
+                x:Name="MatchListing"
+                Title="Matches"
                 >
     <StackLayout>
         <Grid BackgroundColor="#2196F3" Padding="10">
@@ -19,14 +21,14 @@
             <Label LineBreakMode="NoWrap" x:Name="DateLabel" TextColor="#fff" HorizontalOptions="Center" Text="Today" Grid.Row="0" Grid.Column="1"></Label>
             <Label x:Name="NextLabel" TextColor="#fff" HorizontalOptions="End" Text="Next" Grid.Row="0" Grid.Column="2"></Label>
         </Grid>
-        <forms:CarouselView x:Name="DateListCarousel" ItemSelected="carouselOnItemSelected" ItemsSource="{Binding Path=BindingContext.Dates, Source={x:Reference MatchListing}}" Margin="2,0,2,0" >
+        <forms:CarouselView x:Name="DateListCarousel" ItemSelected="carouselOnItemSelected" ItemsSource="{Binding Path=BindingContext.Dates, Source={x:Reference MatchListing}}" Margin="5,5,5,5" >
             <forms:CarouselView.ItemTemplate>
                 <DataTemplate>
                     <ListView ItemsSource="{Binding MatchList}" x:Name="MatchList" SeparatorVisibility="None" HasUnevenRows="True" ItemTapped="itemSelected">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <StackLayout BackgroundColor="LightGray" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Margin="2,0,2,4" Padding="5">
+                                    <StackLayout BackgroundColor="LightGray" HorizontalOptions="CenterAndExpand" VerticalOptions="StartAndExpand" Margin="5,0,5,7" Padding="5">
                                         <Grid>
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="30"/>

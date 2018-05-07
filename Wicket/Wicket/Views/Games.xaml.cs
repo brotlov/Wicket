@@ -75,5 +75,5 @@ namespace Wicket
                 return;
             DateLabel.Text = WicketHelper.ConvertDate(game.Date);
         }
-	}
+    }
 }

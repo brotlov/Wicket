@@ -9,10 +9,12 @@ namespace Wicket.ViewModels
     public class DateViewModel
     {
         public ObservableCollection<DateItem> Dates { get; set; }
+        public bool Loading {get;set;}
 
         public DateViewModel()
         {
             Dates = WicketHelper.Dates;
+            Loading = true;
         }
     }
 }

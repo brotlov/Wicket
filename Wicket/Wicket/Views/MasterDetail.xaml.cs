@@ -22,33 +22,52 @@ namespace Wicket
             BindingContext = dataView;
             InitializeComponent();
             DateList = dataView.Dates;
+            dataView.Loading = false;
 
             var previousLabelTap = new TapGestureRecognizer();
             previousLabelTap.Tapped += (s, e) =>
             {
                 int index;
+                //Check if slide to the left already exists
+                //If so, move back one spot. If not, add new data one less than the slide's date to the DateList
                 if (DateListCarousel.Position == 0)
                 {
-                    DateListCarousel.Position = DateList.Count() - 1;
-                    index = DateList.Count() - 1;
+                    index = 0;
+                    DateList.Insert(0, new DateItem
+                    {
+                        Date = DateList[index].Date.AddDays(-1),
+                        Text = WicketHelper.ConvertDate(DateList[index].Date.AddDays(-1)),
+                        MatchList = WicketHelper.GetMatchList(DateList[index].Date.AddDays(-1)),
+                        Visible = WicketHelper.GetMatchList(DateList[index].Date.AddDays(-1)).Count() > 0 ? true : false,
+                        ErrorShown = WicketHelper.GetMatchList(DateList[index].Date.AddDays(-1)).Count() > 0 ? false : true,
+                    });
+                    DateListCarousel.Position = 0;
                 }
                 else
                 {
                     index = DateListCarousel.Position - 1;
                     DateListCarousel.Position = DateListCarousel.Position - 1;
                 }
-                DateLabel.Text = WicketHelper.ConvertDate(DateList[index].Date);
 
             };
             PreviousLabel.GestureRecognizers.Add(previousLabelTap);
+
             var nextLabelTap = new TapGestureRecognizer();
             nextLabelTap.Tapped += (s, e) =>
             {
                 int index;
                 if (DateListCarousel.Position == DateList.Count() - 1)
                 {
-                    DateListCarousel.Position = 0;
-                    index = 0;
+                    index = DateList.Count() - 1;
+                    DateList.Add(new DateItem
+                    {
+                        Date = DateList[index].Date.AddDays(1),
+                        Text = WicketHelper.ConvertDate(DateList[index].Date.AddDays(1)),
+                        MatchList = WicketHelper.GetMatchList(DateList[index].Date.AddDays(1)),
+                        Visible = WicketHelper.GetMatchList(DateList[index].Date.AddDays(-1)).Count() > 0 ? true : false,
+                        ErrorShown = WicketHelper.GetMatchList(DateList[index].Date.AddDays(-1)).Count() > 0 ? false : true,
+                    });
+                    DateListCarousel.Position = index + 1;
                 }
                 else
                 {

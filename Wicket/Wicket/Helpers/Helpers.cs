@@ -4,6 +4,8 @@ using System.Collections.ObjectModel;
 using Wicket.Models;
 using System.Linq;
 using Xamarin.Forms;
+using Newtonsoft.Json;
+
 
 namespace Wicket.Helpers
 {
@@ -32,55 +34,31 @@ namespace Wicket.Helpers
             return returnString;
         }
 
+        public static ObservableCollection<Match> GetMatchList(DateTime Date)
+        {
+            System.Net.WebClient wc = new System.Net.WebClient();
+            var rawData = wc.DownloadString("http://cricapi.com/api/matches?apikey=azrUF5YaYJhNeXAlzRoqJnA3wZB2");
+            var data = JsonConvert.DeserializeObject<RootObject>(rawData);
+            var MatchList = new ObservableCollection<Match>(data.matches.Where(x => x.date == Date));
+            return MatchList;
+        }
+
         static WicketHelper()
         {
             ActiveMatch = new ObservableCollection<Match>();
-            ActiveMatch.Add(new Match
-            { 
-                Team1 = "Australia", 
-                Team2 = "England", 
-                MatchType="Test Match" 
-            });
+            //ActiveMatch.Add(new Match
+            //{ 
+            //    Team1 = "Australia", 
+            //    Team2 = "England", 
+            //    MatchType="Test Match" 
+            //});
             Dates = new ObservableCollection<DateItem>();
             Dates.Add(new DateItem{ 
                 Date = DateTime.Today,
                 Text = ConvertDate(DateTime.Today),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(1),
-                Text = ConvertDate(DateTime.Today.AddDays(1)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(2),
-                Text = ConvertDate(DateTime.Today.AddDays(2)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(3),
-                Text = ConvertDate(DateTime.Today.AddDays(3)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(4),
-                Text = ConvertDate(DateTime.Today.AddDays(4)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(5),
-                Text = ConvertDate(DateTime.Today.AddDays(5)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(6),
-                Text = ConvertDate(DateTime.Today.AddDays(6)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
-            });
-            Dates.Add(new DateItem{ 
-                Date = DateTime.Today.AddDays(7),
-                Text = ConvertDate(DateTime.Today.AddDays(7)),
-                MatchList = new ObservableCollection<Match> { new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" }, new Match { Team1 = "Australia", Team2 = "England", MatchType="Test Match" } }
+                MatchList = new ObservableCollection<Match>(GetMatchList(DateTime.Today)),
+                Visible = GetMatchList(DateTime.Today).Count() > 0 ? true : false,
+                ErrorShown = GetMatchList(DateTime.Today).Count() > 0 ? false : true,
             });
         }
 	}

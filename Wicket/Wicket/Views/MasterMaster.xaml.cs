@@ -33,7 +33,7 @@ namespace Wicket
             {
                 MenuItems = new ObservableCollection<MasterMenuItem>(new[]
                 {
-                    new MasterMenuItem { Id = 0, Title = "Games", TargetType = typeof(Games) },
+                    new MasterMenuItem { Id = 0, Title = "Matches", TargetType = typeof(Games) },
                     new MasterMenuItem { Id = 1, Title = "Settings", TargetType = typeof(Settings) },
                     new MasterMenuItem { Id = 2, Title = "Donate", TargetType = typeof(Donate) },
                 });
