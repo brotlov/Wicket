@@ -26,8 +26,9 @@
               Grid.Row="2"
               Text="Wicket"
               Style="{DynamicResource SubtitleStyle}"
+              Margin="0, 0, 0, 31"
               TextColor="#fff"
-              FontSize="14"
+              FontSize="20"
               FontAttributes="Bold"/>
         </Grid>
       </ListView.Header>
@@ -38,7 +39,7 @@
               <Label VerticalOptions="FillAndExpand" 
                     VerticalTextAlignment="Center" 
                     Text="{Binding Title}" 
-                    FontSize="14"/>
+                    FontSize="18"/>
             </StackLayout>
           </ViewCell>
         </DataTemplate>

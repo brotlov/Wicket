@@ -15,8 +15,6 @@ namespace Wicket.Models
         public DateTime Date {get;set;}
         public string Text {get;set;}
         public ObservableCollection<Match> MatchList {get;set;}
-        public bool Visible {get;set;}
-        public bool ErrorShown {get;set;}
         public bool Loading {get;set;}
     }
 }

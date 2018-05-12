@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Xamarin.Forms;
 
 namespace Wicket
@@ -12,7 +11,6 @@ namespace Wicket
 		public App ()
 		{
 			InitializeComponent();
-
 			//MainPage = new Wicket.MainPage();
             MainPage = new Master();
 		}

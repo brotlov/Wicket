@@ -5,6 +5,6 @@
             x:Name="IndividualMatchInformation"
              x:Class="Wicket.Views.MatchInformation">
   <!--Pages can be added as references or inline-->
-  <ContentPage Title="{Binding Team1}" />
-  <ContentPage Title="{Binding Team2}" />
+  <ContentPage Title="{Binding homeTeam.name}" />
+  <ContentPage Title="{Binding awayTeam.name}" />
 </TabbedPage>

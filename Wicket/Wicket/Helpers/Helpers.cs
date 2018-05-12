@@ -36,29 +36,37 @@ namespace Wicket.Helpers
 
         public static ObservableCollection<Match> GetMatchList(DateTime Date)
         {
+            var baseUrl = "http://origin-apinew.cricket.com.au/matches?completedLimit=12&inProgressLimit=12&upcomingLimit=12";
             System.Net.WebClient wc = new System.Net.WebClient();
-            var rawData = wc.DownloadString("http://cricapi.com/api/matches?apikey=azrUF5YaYJhNeXAlzRoqJnA3wZB2");
+            var rawData = wc.DownloadString(baseUrl + "&format=json");
             var data = JsonConvert.DeserializeObject<RootObject>(rawData);
-            var MatchList = new ObservableCollection<Match>(data.matches.Where(x => x.date == Date));
+            var MatchList = new ObservableCollection<Match>(data.matchList.matches.Where(x => (x.startDateTime.Date == Date.Date) ||  (x.startDateTime.Date < Date.Date && x.endDateTime.Date > Date.Date)));
             return MatchList;
         }
 
         static WicketHelper()
         {
+            
+
             ActiveMatch = new ObservableCollection<Match>();
-            //ActiveMatch.Add(new Match
-            //{ 
-            //    Team1 = "Australia", 
-            //    Team2 = "England", 
-            //    MatchType="Test Match" 
-            //});
             Dates = new ObservableCollection<DateItem>();
+            Dates.Add(new DateItem{ 
+                Date = DateTime.Today.AddDays(-1),
+                Text = ConvertDate(DateTime.Today.AddDays(-1)),
+                MatchList = new ObservableCollection<Match>(GetMatchList(DateTime.Today.AddDays(-1))),
+                Loading = false
+            });
             Dates.Add(new DateItem{ 
                 Date = DateTime.Today,
                 Text = ConvertDate(DateTime.Today),
                 MatchList = new ObservableCollection<Match>(GetMatchList(DateTime.Today)),
-                Visible = GetMatchList(DateTime.Today).Count() > 0 ? true : false,
-                ErrorShown = GetMatchList(DateTime.Today).Count() > 0 ? false : true,
+                Loading = false
+            });
+            Dates.Add(new DateItem{ 
+                Date = DateTime.Today.AddDays(1),
+                Text = ConvertDate(DateTime.Today.AddDays(1)),
+                MatchList = new ObservableCollection<Match>(GetMatchList(DateTime.Today.AddDays(1))),
+                Loading = false
             });
         }
 	}
