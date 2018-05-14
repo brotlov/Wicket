@@ -4,6 +4,8 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <ApplicationIcon>seeicons__5795fe5e4e598_LA6_icon.ico</ApplicationIcon>
     <Win32Resource />
+    <OutputType>Library</OutputType>
+    <StartupObject />
   </PropertyGroup>
 
   <ItemGroup>

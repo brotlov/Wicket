@@ -24,7 +24,11 @@ namespace Wicket
             DateListCarousel.Position = 1;
             BindingContext = dataView;
             DateList = dataView.Dates;
-            dataView.Loading = false;
+
+            ToolbarItems.Add(new ToolbarItem("Filter", "filter.png",() =>
+            {
+                //logic code goes here
+            }));
 
             var previousLabelTap = new TapGestureRecognizer();
             previousLabelTap.Tapped += (s, e) =>
@@ -128,6 +132,16 @@ namespace Wicket
                 index = DateListCarousel.Position - 1;
                 DateListCarousel.Position = DateListCarousel.Position - 1;
             }
+        }
+
+        async Task RefreshList(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            var index = DateListCarousel.Position;
+            lv.ItemsSource = null;
+            var matchCallResult = await WicketHelper.UpdateMatchListAsync(DateList[index]);
+            lv.ItemsSource = matchCallResult;
+            lv.IsRefreshing = false;
         }
     }
 }

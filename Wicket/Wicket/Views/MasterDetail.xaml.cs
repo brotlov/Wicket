@@ -9,6 +9,7 @@ using Xamarin.Forms.Xaml;
 using Wicket.Helpers;
 using Wicket.Models;
 using Wicket.ViewModels;
+using CarouselView.FormsPlugin.Abstractions;
 
 namespace Wicket
 {
@@ -16,6 +17,8 @@ namespace Wicket
     public partial class MasterDetail : ContentPage
     {
         private ObservableCollection<DateItem> DateList { get; set; }
+        public bool Loading {get;set;}
+
         public MasterDetail()
         {
             InitializeComponent();
@@ -24,12 +27,17 @@ namespace Wicket
             DateListCarousel.Position = 1;
             BindingContext = dataView;
             DateList = dataView.Dates;
+            Loading = false;
+
+            ToolbarItems.Add(new ToolbarItem("Filter", "filter.png",() =>
+            {
+                //logic code goes here
+            }));
 
             var previousLabelTap = new TapGestureRecognizer();
             previousLabelTap.Tapped += (s, e) =>
             {
                 addPreviousSlide();
-
             };
             PreviousLabel.GestureRecognizers.Add(previousLabelTap);
 
@@ -127,6 +135,16 @@ namespace Wicket
                 index = DateListCarousel.Position - 1;
                 DateListCarousel.Position = DateListCarousel.Position - 1;
             }
+        }
+
+        async Task RefreshList(object sender, EventArgs e)
+        {
+            ListView lv = (ListView)sender;
+            var index = DateListCarousel.Position;
+            lv.ItemsSource = null;
+            var matchCallResult = await WicketHelper.UpdateMatchListAsync(DateList[index]);
+            lv.ItemsSource = matchCallResult;
+            lv.IsRefreshing = false;
         }
     }
 }

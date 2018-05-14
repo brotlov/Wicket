@@ -14,3 +14,4 @@ D:\Web Dev Projects\Wicket\App\Wicket\Wicket\obj\Release\netstandard2.0\Wicket.A
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket\obj\Release\netstandard2.0\Wicket.AssemblyInfo.cs
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket\obj\Release\netstandard2.0\Wicket.dll
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket\obj\Release\netstandard2.0\Wicket.pdb
+D:\Web Dev Projects\Wicket\App\Wicket\Wicket\obj\Release\netstandard2.0\Wicket.csprojResolveAssemblyReference.cache

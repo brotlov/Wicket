@@ -5,6 +5,9 @@ using Wicket.Models;
 using System.Linq;
 using Xamarin.Forms;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Net.Http;
 
 
 namespace Wicket.Helpers
@@ -40,14 +43,32 @@ namespace Wicket.Helpers
             System.Net.WebClient wc = new System.Net.WebClient();
             var rawData = wc.DownloadString(baseUrl + "&format=json");
             var data = JsonConvert.DeserializeObject<RootObject>(rawData);
-            var MatchList = new ObservableCollection<Match>(data.matchList.matches.Where(x => (x.startDateTime.Date == Date.Date) ||  (x.startDateTime.Date < Date.Date && x.endDateTime.Date > Date.Date)));
+            var MatchList = new ObservableCollection<Match>(data.matchList.matches.Where(x => (x.startDateTime.Date == Date.Date) ||  (x.startDateTime.Date <= Date.Date && x.endDateTime.Date >= Date.Date)));
             return MatchList;
         }
 
+        public static async Task<ObservableCollection<Match>> UpdateMatchListAsync(DateItem Date)
+        {
+            var baseUrl = "http://origin-apinew.cricket.com.au/matches?completedLimit=12&inProgressLimit=12&upcomingLimit=12";
+            var client = new HttpClient();
+            string response = await client.GetStringAsync(baseUrl + "&format=json");
+            var data = JsonConvert.DeserializeObject<RootObject>(response.ToString());
+            var MatchList = new ObservableCollection<Match>(data.matchList.matches.Where(x => (x.startDateTime.Date == Date.Date) ||  (x.startDateTime.Date <= Date.Date && x.endDateTime.Date >= Date.Date)));
+            return MatchList;
+        }
+
+        public static async Task<Scorecard> GetScorecardAsync(Match matchItem)
+        {
+            var baseUrl = "http://origin-apinew.cricket.com.au/scorecards/full/" + matchItem.series.id + "/" + matchItem.id;
+            var client = new HttpClient();
+            string response = await client.GetStringAsync(baseUrl + "&format=json");
+            var scoreCard = JsonConvert.DeserializeObject<Scorecard>(response.ToString());
+            return scoreCard;
+        }
+
+
         static WicketHelper()
         {
-            
-
             ActiveMatch = new ObservableCollection<Match>();
             Dates = new ObservableCollection<DateItem>();
             Dates.Add(new DateItem{ 
