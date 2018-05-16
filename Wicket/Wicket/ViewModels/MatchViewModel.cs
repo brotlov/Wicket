@@ -8,11 +8,13 @@ namespace Wicket.ViewModels
 {
     public class MatchViewModel
     {
-        public ObservableCollection<Match> ActiveMatch { get; set; }
+        public Match ActiveMatch { get; set; }
+        public Scorecard.RootObject MatchScorecard {get;set;}
 
-        public MatchViewModel()
+        public MatchViewModel(Match match)
         {
-            ActiveMatch = WicketHelper.ActiveMatch;
+            ActiveMatch = match;
+            MatchScorecard = WicketHelper.GetScorecard(match);
         }
     }
 }

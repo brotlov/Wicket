@@ -85,6 +85,7 @@ D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\android\assets\
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\android\assets\System.Xml.Linq.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\android\assets\System.Xml.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\android\assets\Wicket.pdb
+D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\res\drawable\filter.png
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\bin\Release\Wicket.Android.dll
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\linksrc\Wicket.Android.dll.mdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Release\linksrc\FormsViewGroup.dll.mdb

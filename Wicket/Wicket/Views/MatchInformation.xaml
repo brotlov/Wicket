@@ -5,24 +5,9 @@
             x:Name="IndividualMatchInformation"
              x:Class="Wicket.Views.MatchInformation">
   <!--Pages can be added as references or inline-->
-    <ContentPage Title="Scorecard">
-        <ActivityIndicator  x:Name="ScorecardLoading" IsRunning="True"
-                            IsVisible="True"
-                            HeightRequest="40"
-                            VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="CenterAndExpand">
-            <ActivityIndicator.WidthRequest>
-                <OnPlatform x:TypeArguments="x:Double" iOS="100" Android="100" WinPhone="400" />
-            </ActivityIndicator.WidthRequest>
-            <ActivityIndicator.Color>
-                <OnPlatform x:TypeArguments="Color"
-                        iOS="#4285F4" WinPhone="#4285F4" Android="#4285F4" />
-            </ActivityIndicator.Color>
-        </ActivityIndicator>
-    </ContentPage>
     <ContentPage Title="Overview">
-        <ActivityIndicator  x:Name="OverviewLoading" IsRunning="True"
-                            IsVisible="True"
+        <ActivityIndicator  x:Name="OverviewLoading" IsRunning="False"
+                            IsVisible="False"
                             HeightRequest="40"
                             VerticalOptions="CenterAndExpand"
                             HorizontalOptions="CenterAndExpand">
@@ -34,6 +19,374 @@
                         iOS="#4285F4" WinPhone="#4285F4" Android="#4285F4" />
             </ActivityIndicator.Color>
         </ActivityIndicator>
+        
+        <StackLayout Margin="5">
+            <Frame OutlineColor="Black" Padding="10">
+                <StackLayout BackgroundColor="#FDFDFD">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="25*"></ColumnDefinition>
+                            <ColumnDefinition Width="25*"></ColumnDefinition>
+                            <ColumnDefinition Width="25*"></ColumnDefinition>
+                            <ColumnDefinition Width="25*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Text="{Binding ActiveMatch.matchSummaryText}" FontSize="16" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" HorizontalTextAlignment="Start" HorizontalOptions="CenterAndExpand"></Label>
+                        <Label Text="{Binding ActiveMatch.homeTeam.name}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="1" HorizontalTextAlignment="Start" HorizontalOptions="Start" Grid.RowSpan="1" VerticalOptions="Center"></Label>
+                        <Label Text="{Binding ActiveMatch.scores.homeScore}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" HorizontalTextAlignment="Start"></Label>
+                        <Label Text="{Binding ActiveMatch.scores.homeOvers}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" HorizontalTextAlignment="End"></Label>
+                        <Label Text="{Binding ActiveMatch.awayTeam.name}" Grid.Column="0" Grid.ColumnSpan="4" Grid.Row="3" HorizontalTextAlignment="Start" HorizontalOptions="Start" Grid.RowSpan="1" VerticalOptions="Center"></Label>
+                        <Label Text="{Binding ActiveMatch.scores.awayScore}" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="4" HorizontalTextAlignment="Start"></Label>
+                        <Label Text="{Binding ActiveMatch.scores.awayOvers}" Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="4" HorizontalTextAlignment="End"></Label>
+                    </Grid>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
     </ContentPage>
-    
+    <ContentPage Title="Scorecard">
+        <ActivityIndicator  x:Name="ScorecardLoading" IsRunning="False"
+                            IsVisible="False"
+                            HeightRequest="40"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand">
+            <ActivityIndicator.WidthRequest>
+                <OnPlatform x:TypeArguments="x:Double" iOS="100" Android="100" WinPhone="400" />
+            </ActivityIndicator.WidthRequest>
+            <ActivityIndicator.Color>
+                <OnPlatform x:TypeArguments="Color"
+                        iOS="#4285F4" WinPhone="#4285F4" Android="#4285F4" />
+            </ActivityIndicator.Color>
+        </ActivityIndicator>
+        <StackLayout  Margin="5" IsVisible="True">
+            <Frame OutlineColor="Black" Padding="10">
+                <StackLayout BackgroundColor="#FDFDFD">
+                    <!--TODO: Find a better way to render this shit-->
+                    <ScrollView>
+                        <StackLayout>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                    <ColumnDefinition Width="35*"></ColumnDefinition>
+                                    <ColumnDefinition Width="35*"></ColumnDefinition>
+                                    <ColumnDefinition Width="15*"></ColumnDefinition>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="Btn_HomeTeamInnings1" Clicked="ShowHomeTeam" Grid.Row="1" Grid.Column="1" FontSize="12" HorizontalOptions="CenterAndExpand" BackgroundColor="#FDFDFD" TextColor="#FDFDFD" BorderRadius="0" BorderWidth="2" BorderColor="#2196F3" Text="{Binding MatchScorecard.fullScorecard.innings[1].shortName}"></Button>
+                                <Button x:Name="Btn_AwayTeamInnings1" Clicked="ShowAwayTeam" Grid.Row="1" Grid.Column="2" FontSize="12" HorizontalOptions="CenterAndExpand" BackgroundColor="#FDFDFD" TextColor="#FDFDFD" BorderRadius="0" BorderWidth="2" BorderColor="#2196F3" Text="{Binding MatchScorecard.fullScorecard.innings[0].shortName}"></Button>
+                            </Grid>
+                            <StackLayout x:Name="HomeTeamInningsLayout" IsVisible="True">
+                                <Grid Margin="0, 20, 0, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Batting" FontSize="14" FontAttributes="Bold" Grid.Column="0" Grid.Row="0"></Label>
+                                    <Label Text="R" FontSize="14" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"></Label>
+                                    <Label Text="B" FontSize="14" FontAttributes="Bold" Grid.Column="2" Grid.Row="0"></Label>
+                                    <Label Text="4s" FontSize="14" FontAttributes="Bold" Grid.Column="3" Grid.Row="0"></Label>
+                                    <Label Text="6s" FontSize="14" FontAttributes="Bold" Grid.Column="4" Grid.Row="0"></Label>
+                                    <Label Text="S/R" FontSize="14" FontAttributes="Bold" Grid.Column="5" Grid.Row="0"></Label>
+                                    <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="0,0,0,0" BackgroundColor="#2196F3" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].howOut}" FontSize="12" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[0].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].howOut}" FontSize="12"  Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[1].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].howOut}" FontSize="12" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[2].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].howOut}" FontSize="12" Grid.Column="0" Grid.Row="7" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[3].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].howOut}" FontSize="12" Grid.Column="0" Grid.Row="9" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[4].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].howOut}" FontSize="12" Grid.Column="0" Grid.Row="11" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[5].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].howOut}" FontSize="12" Grid.Column="0" Grid.Row="13" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[6].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].howOut}" FontSize="12" Grid.Column="0" Grid.Row="15" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[7].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].howOut}" FontSize="12" Grid.Column="0" Grid.Row="17" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[8].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].howOut}" FontSize="12" Grid.Column="0" Grid.Row="19" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[9].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].howOut}" FontSize="12" Grid.Column="0" Grid.Row="21" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].batsmen[10].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="21"></Label>
+                                    <BoxView Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="6" Margin="0,0,0,0" BackgroundColor="#2196F3" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="Total" Grid.Column="0" Grid.Row="23"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[1].run}" Grid.Column="5" HorizontalTextAlignment="End" Grid.Row="23"></Label>
+                                </Grid>
+                                <Grid Margin="0, 20, 0, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Bowling" FontSize="14" FontAttributes="Bold" Grid.Column="0" Grid.Row="0"></Label>
+                                    <Label Text="O" FontSize="14" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"></Label>
+                                    <Label Text="M" FontSize="14" FontAttributes="Bold" Grid.Column="2" Grid.Row="0"></Label>
+                                    <Label Text="R" FontSize="14" FontAttributes="Bold" Grid.Column="3" Grid.Row="0"></Label>
+                                    <Label Text="W" FontSize="14" FontAttributes="Bold" Grid.Column="4" Grid.Row="0"></Label>
+                                    <Label Text="Eco" FontSize="14" FontAttributes="Bold" Grid.Column="5" Grid.Row="0"></Label>
+                                    <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="0,0,0,0" BackgroundColor="#2196F3" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+                                </Grid>
+                            </StackLayout>
+                            <StackLayout x:Name="AwayTeamInningsLayout" IsVisible="False">
+                                <Grid Margin="0, 20, 0, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Batting" FontSize="14" FontAttributes="Bold" Grid.Column="0" Grid.Row="0"></Label>
+                                    <Label Text="R" FontSize="14" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"></Label>
+                                    <Label Text="B" FontSize="14" FontAttributes="Bold" Grid.Column="2" Grid.Row="0"></Label>
+                                    <Label Text="4s" FontSize="14" FontAttributes="Bold" Grid.Column="3" Grid.Row="0"></Label>
+                                    <Label Text="6s" FontSize="14" FontAttributes="Bold" Grid.Column="4" Grid.Row="0"></Label>
+                                    <Label Text="S/R" FontSize="14" FontAttributes="Bold" Grid.Column="5" Grid.Row="0"></Label>
+                                    <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="0,0,0,0" BackgroundColor="#2196F3" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].howOut}" FontSize="12" Grid.Column="0" Grid.Row="1" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[0].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="1"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].howOut}" FontSize="12"  Grid.Column="0" Grid.Row="3" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[1].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="3"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].howOut}" FontSize="12" Grid.Column="0" Grid.Row="5" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[2].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="5"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].howOut}" FontSize="12" Grid.Column="0" Grid.Row="7" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[3].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="7"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].howOut}" FontSize="12" Grid.Column="0" Grid.Row="9" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[4].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="9"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].howOut}" FontSize="12" Grid.Column="0" Grid.Row="11" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[5].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="11"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].howOut}" FontSize="12" Grid.Column="0" Grid.Row="13" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[6].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="13"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].howOut}" FontSize="12" Grid.Column="0" Grid.Row="15" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[7].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="15"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].howOut}" FontSize="12" Grid.Column="0" Grid.Row="17" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[8].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="17"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].howOut}" FontSize="12" Grid.Column="0" Grid.Row="19" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[9].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="19"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].name}" FontSize="12" FontAttributes="Bold" Grid.Column="0" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].howOut}" FontSize="12" Grid.Column="0" Grid.Row="21" Grid.RowSpan="2" VerticalTextAlignment="End"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].runs}" FontSize="12" FontAttributes="Bold" Grid.Column="1" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].balls}" FontSize="12" FontAttributes="Bold" Grid.Column="2" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].fours}" FontSize="12" FontAttributes="Bold" Grid.Column="3" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].sixes}" FontSize="12" FontAttributes="Bold" Grid.Column="4" Grid.Row="21"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].batsmen[10].strikeRate}" FontSize="12" FontAttributes="Bold" Grid.Column="5" Grid.Row="21"></Label>
+                                    <BoxView Grid.Row="23" Grid.Column="0" Grid.ColumnSpan="6" Margin="0,0,0,0" BackgroundColor="#2196F3" HeightRequest="1" VerticalOptions="Start" HorizontalOptions="FillAndExpand"/>
+                                    <Label Text="Total" Grid.Column="0" Grid.Row="23"></Label>
+                                    <Label Text="{Binding MatchScorecard.fullScorecard.innings[0].run}" Grid.Column="5" HorizontalTextAlignment="End" Grid.Row="23"></Label>
+                                </Grid>
+                                <Grid Margin="0, 20, 0, 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                        <RowDefinition Height="Auto"></RowDefinition>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Text="Bowling" FontSize="14" FontAttributes="Bold" Grid.Column="0" Grid.Row="0"></Label>
+                                    <Label Text="O" FontSize="14" FontAttributes="Bold" Grid.Column="1" Grid.Row="0"></Label>
+                                    <Label Text="M" FontSize="14" FontAttributes="Bold" Grid.Column="2" Grid.Row="0"></Label>
+                                    <Label Text="R" FontSize="14" FontAttributes="Bold" Grid.Column="3" Grid.Row="0"></Label>
+                                    <Label Text="W" FontSize="14" FontAttributes="Bold" Grid.Column="4" Grid.Row="0"></Label>
+                                    <Label Text="Eco" FontSize="14" FontAttributes="Bold" Grid.Column="5" Grid.Row="0"></Label>
+                                    <BoxView Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6" Margin="0,0,0,0" BackgroundColor="#2196F3" HeightRequest="1" VerticalOptions="End" HorizontalOptions="FillAndExpand"/>
+                                </Grid>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage>
 </TabbedPage>

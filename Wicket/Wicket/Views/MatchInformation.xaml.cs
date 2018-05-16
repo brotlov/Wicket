@@ -18,31 +18,29 @@ namespace Wicket.Views
         public MatchInformation (Match selectedMatch)
         {
             InitializeComponent();
-            BindingContext = selectedMatch;
-
-            var task = GetScoreCard(selectedMatch);
-            Task.Run(async () => {
-                try
-                {
-                    await GetScoreCard(selectedMatch);
-                }
-                catch (System.OperationCanceledException ex)
-                {
-                    Console.WriteLine($"Text load cancelled: {ex.Message}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-            });
-
+            var dataView = new MatchViewModel(selectedMatch);
+            BindingContext = dataView;
+            ShowHomeTeam();
         }
 
-        async Task GetScoreCard(Match match)
+        private void ShowHomeTeam()
         {
-            await WicketHelper.GetScorecardAsync(match);
-            ScorecardLoading.IsRunning = false;
-            ScorecardLoading.IsVisible = false;
+            Btn_HomeTeamInnings1.BackgroundColor = Color.FromHex("#2196F3");
+            Btn_HomeTeamInnings1.TextColor = Color.FromHex("#fff");
+            Btn_AwayTeamInnings1.BackgroundColor = Color.FromHex("#fff");
+            Btn_AwayTeamInnings1.TextColor = Color.FromHex("#2196F3");
+            HomeTeamInningsLayout.IsVisible = true;
+            AwayTeamInningsLayout.IsVisible = false;
+        }
+
+        private void ShowAwayTeam()
+        {
+            Btn_AwayTeamInnings1.BackgroundColor = Color.FromHex("#2196F3");
+            Btn_AwayTeamInnings1.TextColor = Color.FromHex("#fff");
+            Btn_HomeTeamInnings1.BackgroundColor = Color.FromHex("#fff");
+            Btn_HomeTeamInnings1.TextColor = Color.FromHex("#2196F3");
+            AwayTeamInningsLayout.IsVisible = true;
+            HomeTeamInningsLayout.IsVisible = false;
         }
     }
 }

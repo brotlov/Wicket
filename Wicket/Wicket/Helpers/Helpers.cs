@@ -57,12 +57,12 @@ namespace Wicket.Helpers
             return MatchList;
         }
 
-        public static async Task<Scorecard> GetScorecardAsync(Match matchItem)
+        public static Scorecard.RootObject GetScorecard(Match matchItem)
         {
             var baseUrl = "http://origin-apinew.cricket.com.au/scorecards/full/" + matchItem.series.id + "/" + matchItem.id;
-            var client = new HttpClient();
-            string response = await client.GetStringAsync(baseUrl + "&format=json");
-            var scoreCard = JsonConvert.DeserializeObject<Scorecard>(response.ToString());
+            System.Net.WebClient wc = new System.Net.WebClient();
+            string response = wc.DownloadString(baseUrl + "?format=json");
+            var scoreCard = JsonConvert.DeserializeObject<Scorecard.RootObject>(response.ToString());
             return scoreCard;
         }
 

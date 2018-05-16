@@ -185,6 +185,7 @@ D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\android\assets\Sy
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\android\assets\System.Web.Services.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\res\drawable\filter.png
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\bin\Debug\Wicket.Android.dll
+D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\Wicket.pdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\Wicket.Android.dll.mdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\FormsViewGroup.dll.mdb
 D:\Web Dev Projects\Wicket\App\Wicket\Wicket.Android\obj\Debug\linksrc\Xamarin.Forms.Core.dll.mdb
